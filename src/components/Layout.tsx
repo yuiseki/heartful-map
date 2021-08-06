@@ -186,7 +186,7 @@ export function Layout({ children }: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <h1 tw='text-xl'>生活お悩みカルテ</h1>
+          <h1 tw='text-xl'>ハートフルマップ</h1>
         </Toolbar>
       </AppBar>
       <Drawer
