@@ -43,6 +43,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "bcryptjs": "^2.4.3",
+    "detect-location-jp": "^0.0.4",
     "dotenv": "^10.0.0",
     "mongoose": "^5.13.5",
     "next": "latest",
