@@ -1,20 +1,33 @@
 /// <reference types="@emotion/react/types/css-prop" />
-import tw, { css } from "twin.macro";
-import { Button } from "../components/button";
+import React from 'react';
+import 'twin.macro';
+import Link from 'next/link';
+import { Typography } from '@material-ui/core';
+import { Layout } from '~/components/Layout';
 
-const container = css`
-  ${tw`mx-auto m-4 p-4 rounded bg-gray-400`}
-`;
+export const Page: React.VFC = () => {
+  return (
+    <Layout>
+      <p>
+        <Typography variant='h6'>ハートフルマップへようこそ！</Typography>
+      </p>
+      <p>
+        <Typography variant='h6'>
+          <b>
+            <Link href='/auth/signup'>ユーザー登録</Link>
+          </b>
+          または
+          <b>
+            <Link href='/auth/signin'>ログイン</Link>
+          </b>
+          することで、口コミの投稿ができます。
+        </Typography>
+      </p>
+      <p>
+        <Typography variant='h6'>都道府県を選択してください。</Typography>
+      </p>
+    </Layout>
+  );
+};
 
-export const Home = (): JSX.Element => (
-  <div css={container}>
-    <main>
-      <h1 tw="text-5xl font-bold">
-        Nextjs App with TypeScript, ESlint, Jest, Emotion, Tailwind and Twin
-      </h1>
-      <Button />
-    </main>
-  </div>
-)
-
-export default Home
+export default Page;
