@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+import { IPostModel } from './PostModel';
 
 const HASH_ROUNDS = 10;
 
@@ -11,12 +12,12 @@ interface IUser {
   name?: string;
   birthYear?: number;
   gender?: string;
-  address?: string;
   placeState?: string;
   placeCity?: string;
   password: string;
   email: string;
   comparePassword: (candidatePassword: string) => boolean;
+  posts?: IPostModel[];
 }
 
 export interface IUserModel extends IUser, mongoose.Document {}
@@ -30,11 +31,11 @@ const schema = new mongoose.Schema(
     name: { type: String, default: null },
     birthYear: { type: Number, default: null },
     gender: { type: String, default: null },
-    address: { type: String, default: null },
     placeState: { type: String, default: null },
     placeCity: { type: String, default: null },
     email: { type: String, lowercase: true, required: true, unique: true },
     password: { type: String, required: true },
+    posts: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'PostModel' }],
   },
   { timestamps: true }
 );
