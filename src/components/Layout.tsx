@@ -93,8 +93,8 @@ const MyDrawer: React.VFC = () => {
   const [session] = useSession();
   return (
     <div>
-      <Divider />
       <List>
+        <Divider />
         <Link href='/'>
           <ListItem button key='トップページ'>
             <ListItemIcon>
@@ -103,11 +103,18 @@ const MyDrawer: React.VFC = () => {
             <ListItemText primary='トップページ' />
           </ListItem>
         </Link>
-      </List>
-      {session && (
-        <>
-          <Divider />
-          <List>
+        {session && (
+          <>
+            <Divider />
+            <Link href='/posts/new'>
+              <ListItem button key='口コミを投稿'>
+                <ListItemIcon>
+                  <SettingsIcon />
+                </ListItemIcon>
+                <ListItemText primary='口コミを投稿' />
+              </ListItem>
+            </Link>
+            <Divider />
             <Link href='/settings'>
               <ListItem button key='ユーザー設定'>
                 <ListItemIcon>
@@ -116,11 +123,16 @@ const MyDrawer: React.VFC = () => {
                 <ListItemText primary='ユーザー設定' />
               </ListItem>
             </Link>
-          </List>
-        </>
-      )}
-      <Divider />
-      <List>
+            <Divider />
+            <ListItem button onClick={() => signOut()} key='ログアウト'>
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary='ログアウト' />
+            </ListItem>
+          </>
+        )}
+        <Divider />
         {!session && (
           <>
             <Link href='/auth/signup'>
@@ -131,6 +143,7 @@ const MyDrawer: React.VFC = () => {
                 <ListItemText primary='ユーザー登録' />
               </ListItem>
             </Link>
+            <Divider />
             <Link href='/auth/signin'>
               <ListItem button key='ログイン'>
                 <ListItemIcon>
@@ -141,16 +154,8 @@ const MyDrawer: React.VFC = () => {
             </Link>
           </>
         )}
-        {session && (
-          <ListItem button onClick={() => signOut()} key='ログアウト'>
-            <ListItemIcon>
-              <ExitToAppIcon />
-            </ListItemIcon>
-            <ListItemText primary='ログアウト' />
-          </ListItem>
-        )}
+        <Divider />
       </List>
-      <Divider />
     </div>
   );
 };

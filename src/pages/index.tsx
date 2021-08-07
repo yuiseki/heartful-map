@@ -5,13 +5,17 @@ import NextLink from 'next/link';
 import { Link, List, ListItem } from '@material-ui/core';
 import { Layout } from '~/components/Layout';
 import { states } from 'detect-location-jp';
-import { useSession } from 'next-auth/client';
+import useSWR from 'swr';
 
 const UserInfo: React.VFC = () => {
-  const [session] = useSession();
+  const { data: me } = useSWR('/api/users/me');
 
-  if (session) {
-    return <p>{session.user.email} としてログイン中です</p>;
+  if (me) {
+    return (
+      <p>
+        {me.name} さん ({me.email}) としてログイン中です
+      </p>
+    );
   } else {
     return (
       <p>

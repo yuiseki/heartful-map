@@ -6,6 +6,7 @@ import { UserModel } from '~/models/UserModel';
 export default async (req, res) => {
   const session = await getSession({ req });
   await dbConnect();
+  let user = null;
 
   if (req.method !== 'GET') {
     if (!session) {
@@ -13,7 +14,7 @@ export default async (req, res) => {
       res.end();
       return;
     }
-    const user = await UserModel.findOne({ email: session.user.email });
+    user = await UserModel.findOne({ email: session.user.email });
     if (!user) {
       res.status(401).json({ error: 'Unauthorized' });
       res.end();
@@ -22,7 +23,10 @@ export default async (req, res) => {
   }
 
   if (req.method === 'GET') {
-    const posts = await PostModel.find();
+    const posts = await PostModel.find({}, null, {
+      sort: { updatedAt: -1 },
+      limit: 100,
+    });
     if (posts) {
       res.status(200).json(posts);
     } else {
@@ -35,6 +39,9 @@ export default async (req, res) => {
       const newPost = new PostModel({
         title: req.body.title,
         body: req.body.body,
+        placeState: req.body.placeState,
+        placeCity: req.body.placeCity,
+        user: user,
       });
       await newPost.save();
       res.redirect('/posts');

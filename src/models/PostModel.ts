@@ -25,7 +25,7 @@ export interface IPostModel extends IPost, mongoose.Document {}
 const schema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    body: { type: String, default: null },
+    body: { type: String, required: true },
     latitude: { type: Number, default: null },
     longitude: { type: Number, default: null },
     placeState: { type: String, default: null },
