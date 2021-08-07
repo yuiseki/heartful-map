@@ -5,11 +5,15 @@ import NextLink from 'next/link';
 import { Link, List, ListItem } from '@material-ui/core';
 import { Layout } from '~/components/Layout';
 import { states } from 'detect-location-jp';
+import { useSession } from 'next-auth/client';
 
-export const Page: React.VFC = () => {
-  return (
-    <Layout>
-      <h2>ハートフルマップへようこそ！</h2>
+const UserInfo: React.VFC = () => {
+  const [session] = useSession();
+
+  if (session) {
+    return <p>{session.user.email} としてログイン中です</p>;
+  } else {
+    return (
       <p>
         <b>
           <NextLink href='/auth/signup'>ユーザー登録</NextLink>
@@ -20,6 +24,15 @@ export const Page: React.VFC = () => {
         </b>
         することで、口コミの投稿ができます。
       </p>
+    );
+  }
+};
+
+export const Page: React.VFC = () => {
+  return (
+    <Layout>
+      <h2>ハートフルマップへようこそ！</h2>
+      <UserInfo />
       <p>都道府県を選択してください。</p>
       <List>
         {states

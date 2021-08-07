@@ -22,9 +22,8 @@ export default function SignIn({ csrfToken }: { csrfToken: string }) {
 
   return (
     <Layout>
-      <form method='post' action='/api/auth/callback/credentials'>
+      <form method='post' action='/api/users'>
         <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
-        <input name='callbackUrl' type='hidden' defaultValue='/main' />
         <Grid container spacing={4} alignItems='center' direction='column'>
           <Grid item>
             <Grid container spacing={2} alignItems='center'>

@@ -4,6 +4,11 @@ import { UserModel } from '~/models/UserModel';
 import { dbConnect } from '~/lib/dbConnect';
 
 export default NextAuth({
+  pages: {
+    signIn: '/auth/signin',
+    error: '/auth/signin',
+    newUser: '/',
+  },
   providers: [
     Providers.Credentials({
       name: 'Email',
