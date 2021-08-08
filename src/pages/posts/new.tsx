@@ -21,6 +21,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
 
   // 住所が変化したらGPS座標を取得しcenterを更新する
   useEffect(() => {
+    // @ts-ignore
     window.getLatLng(address, (latlng) => {
       console.info('getLatLng', address, latlng);
       setCenter([parseFloat(latlng.lat), parseFloat(latlng.lng)]);
