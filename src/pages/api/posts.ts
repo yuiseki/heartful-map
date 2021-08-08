@@ -47,10 +47,14 @@ export default async (req, res) => {
   }
 
   if (req.method === 'POST') {
+    console.info(req.body);
     try {
       const newPost = new PostModel({
         title: req.body.title,
         body: req.body.body,
+        address: req.body.address,
+        longitude: req.body.longitude,
+        latitude: req.body.latitude,
         placeState: req.body.placeState,
         placeCity: req.body.placeCity,
         user: user,

@@ -40,6 +40,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
+          <script src='https://cdn.geolonia.com/community-geocoder.js'></script>
         </Head>
         <GlobalStyles />
         <Global styles={globalStyles} />
