@@ -23,10 +23,22 @@ export default async (req, res) => {
   }
 
   if (req.method === 'GET') {
-    const posts = await PostModel.find({}, null, {
+    const { state, city } = req.query;
+    const condition = {};
+    if (state) {
+      Object.assign(condition, {
+        placeState: state,
+      });
+    }
+    if (city) {
+      Object.assign(condition, {
+        placeCity: city,
+      });
+    }
+    const posts = await PostModel.find(condition, null, {
       sort: { updatedAt: -1 },
       limit: 100,
-    });
+    }).populate('user', '_id name');
     if (posts) {
       res.status(200).json(posts);
     } else {
@@ -44,7 +56,7 @@ export default async (req, res) => {
         user: user,
       });
       await newPost.save();
-      res.redirect('/posts');
+      res.redirect('/');
     } catch (e) {
       res.redirect('/posts/new?error=' + e.message);
     }

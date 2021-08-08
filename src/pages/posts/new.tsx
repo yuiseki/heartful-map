@@ -1,12 +1,26 @@
 import { Button, Grid, TextField } from '@material-ui/core';
 import { getCsrfToken } from 'next-auth/client';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { Layout } from '~/components/Layout';
 import { openReverseGeocoder } from '@geolonia/open-reverse-geocoder';
+import useLocalStorageValue from '~/hooks/useLocalStorageValue';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [localState, setLocalState] = useLocalStorageValue('area-state');
   const [state, setState] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [localCity, setLocalCity] = useLocalStorageValue('area-city');
   const [city, setCity] = useState('');
+
+  useEffect(() => {
+    // @ts-ignore
+    setState(localState);
+    // @ts-ignore
+    setCity(localCity);
+  }, [localState, localCity]);
 
   const getCurrentPosition = useCallback(() => {
     const success = async (position) => {
@@ -15,11 +29,15 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
         coords.longitude,
         coords.latitude,
       ]);
+      // @ts-ignore
+      setLocalState(result.prefecture);
       setState(result.prefecture);
+      // @ts-ignore
+      setLocalCity(result.city);
       setCity(result.city);
     };
     navigator.geolocation.getCurrentPosition(success);
-  }, [setState, setCity]);
+  }, [setLocalState, setLocalCity]);
 
   return (
     <Layout>
@@ -39,7 +57,11 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 label='都道府県'
                 variant='outlined'
                 placeholder='都道府県'
+                defaultValue={state}
                 value={state}
+                onChange={(e) => {
+                  setState(e.target.value);
+                }}
               />
             </Grid>
             <Grid item>
@@ -51,7 +73,11 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 label='市区町村'
                 variant='outlined'
                 placeholder='市区町村'
+                defaultValue={city}
                 value={city}
+                onChange={(e) => {
+                  setCity(e.target.value);
+                }}
               />
             </Grid>
             <Grid item>

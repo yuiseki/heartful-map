@@ -1,32 +1,65 @@
 import { useRouter } from 'next/dist/client/router';
-import React from 'react';
+import React, { useState } from 'react';
+import 'twin.macro';
 import { Layout } from '~/components/Layout';
 import { cities } from 'detect-location-jp';
-import { Link, List, ListItem } from '@material-ui/core';
-import NextLink from 'next/link';
+import { Button, Grid } from '@material-ui/core';
+import Link from 'next/link';
+import useSWR from 'swr';
+import { PostCard } from '~/components/PostCard';
+import { useEffect } from 'react';
+import { useSession } from 'next-auth/client';
 
 export const Page: React.VFC = () => {
   const router = useRouter();
   const { state } = router.query;
+  const [url, setUrl] = useState(null);
+  const { data: posts } = useSWR(url);
+  const [session] = useSession();
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (state) {
+      params.append('state', state as string);
+    }
+    setUrl('/api/posts?' + params.toString());
+  }, [state]);
 
   return (
     <Layout>
-      <List>
-        {cities.map((city) => {
-          if (city.state_ja !== state) {
-            return null;
-          }
-          return (
-            <ListItem key={Math.random()}>
-              <Link>
-                <NextLink href={'/place/' + state + '/' + city.city_ja}>
-                  {city.city_ja}
-                </NextLink>
-              </Link>
-            </ListItem>
-          );
-        })}
-      </List>
+      <h2 tw='text-3xl'>{state}の口コミ一覧</h2>
+      <p>市区町村を選択してください。</p>
+      <div tw='my-4'>
+        <Grid container spacing={2}>
+          {cities.map((city) => {
+            if (city.state_ja !== state) {
+              return null;
+            }
+            return (
+              <Grid item key={city.id}>
+                <Link href={'/place/' + state + '/' + city.city_ja}>
+                  <Button variant='outlined'>{city.city_ja}</Button>
+                </Link>
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
+      {session && (
+        <div tw='my-4'>
+          <Link href='/recipes/new'>
+            <Button variant='outlined' color='primary'>
+              口コミを投稿
+            </Button>
+          </Link>
+        </div>
+      )}
+      <div tw='my-4'>
+        {posts &&
+          posts.map((post) => {
+            return <PostCard key={post._id} post={post} />;
+          })}
+      </div>
     </Layout>
   );
 };

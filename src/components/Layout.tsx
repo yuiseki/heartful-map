@@ -28,7 +28,6 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import ForumIcon from '@material-ui/icons/Forum';
 
 const MyDrawer: React.VFC = () => {
   const [session] = useSession();
@@ -42,15 +41,6 @@ const MyDrawer: React.VFC = () => {
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary='トップページ' />
-          </ListItem>
-        </Link>
-        <Divider />
-        <Link href='/posts'>
-          <ListItem button key='口コミ一覧'>
-            <ListItemIcon>
-              <ForumIcon />
-            </ListItemIcon>
-            <ListItemText primary='口コミ一覧' />
           </ListItem>
         </Link>
         {session && (
