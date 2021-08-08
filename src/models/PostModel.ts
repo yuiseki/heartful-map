@@ -8,11 +8,14 @@ interface IPost {
   longitude?: number;
   placeState?: string;
   placeCity?: string;
+  address?: string;
   url?: string;
   imageUrl?: string;
   tel?: string;
   email?: string;
-  address?: string;
+  twitter?: string;
+  facebook?: string;
+  instagram?: string;
   draft: boolean;
   confirmed: boolean;
   user: IUserModel;
@@ -30,11 +33,14 @@ const schema = new mongoose.Schema(
     longitude: { type: Number, default: null },
     placeState: { type: String, default: null },
     placeCity: { type: String, default: null },
+    address: { type: String, default: null },
     url: { type: String, default: null },
     imageUrl: { type: String, default: null },
     tel: { type: String, default: null },
     email: { type: String, default: null },
-    address: { type: String, default: null },
+    twitter: { type: String, default: null },
+    facebook: { type: String, default: null },
+    instagram: { type: String, default: null },
     draft: { type: Boolean, default: true },
     confirmed: { type: Boolean, default: false },
     user: {
