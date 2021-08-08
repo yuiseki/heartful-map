@@ -11,13 +11,17 @@ import {
   MenuItem,
 } from '@material-ui/core';
 import { IPostModel } from '~/models/PostModel';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import useSWR from 'swr';
 import Link from 'next/link';
 import { useCallback } from 'react';
 import { useRouter } from 'next/dist/client/router';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+// import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import PhoneIcon from '@material-ui/icons/Phone';
+import MailIcon from '@material-ui/icons/Mail';
 
 export const PostCard: React.VFC<{ post: IPostModel }> = ({
   post,
@@ -98,12 +102,42 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
         }
       />
       <CardContent>
+        <p>カテゴリー：{post.category}</p>
         <p>{post.body}</p>
+        <p>{post.address}</p>
       </CardContent>
       <CardActions>
         <IconButton tw='focus:outline-none'>
           <ShareIcon />
         </IconButton>
+        {post.twitter && (
+          <a href={post.twitter} target='_blank' rel='noreferrer'>
+            <IconButton tw='focus:outline-none'>
+              <TwitterIcon />
+            </IconButton>
+          </a>
+        )}
+        {post.facebook && (
+          <a href={post.facebook} target='_blank' rel='noreferrer'>
+            <IconButton tw='focus:outline-none'>
+              <FacebookIcon />
+            </IconButton>
+          </a>
+        )}
+        {post.email && (
+          <a href={'mailto:' + post.email} target='_blank' rel='noreferrer'>
+            <IconButton tw='focus:outline-none'>
+              <MailIcon />
+            </IconButton>
+          </a>
+        )}
+        {post.tel && (
+          <a href={'tel:' + post.tel} target='_blank' rel='noreferrer'>
+            <IconButton tw='focus:outline-none'>
+              <PhoneIcon />
+            </IconButton>
+          </a>
+        )}
       </CardActions>
     </Card>
   );

@@ -50,13 +50,8 @@ export default async (req, res) => {
     console.info(req.body);
     try {
       const newPost = new PostModel({
-        title: req.body.title,
-        body: req.body.body,
-        address: req.body.address,
-        longitude: req.body.longitude,
-        latitude: req.body.latitude,
-        placeState: req.body.placeState,
-        placeCity: req.body.placeCity,
+        ...req.body,
+        category: req.body['category[]'],
         user: user,
       });
       await newPost.save();

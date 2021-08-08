@@ -4,11 +4,12 @@ import { IUserModel } from './UserModel';
 interface IPost {
   title: string;
   body?: string;
-  latitude?: number;
-  longitude?: number;
+  address?: string;
   placeState?: string;
   placeCity?: string;
-  address?: string;
+  latitude?: number;
+  longitude?: number;
+  category?: string[];
   url?: string;
   imageUrl?: string;
   tel?: string;
@@ -29,11 +30,12 @@ const schema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     body: { type: String, required: true },
-    latitude: { type: Number, default: null },
-    longitude: { type: Number, default: null },
+    address: { type: String, default: null },
     placeState: { type: String, default: null },
     placeCity: { type: String, default: null },
-    address: { type: String, default: null },
+    latitude: { type: Number, default: null },
+    longitude: { type: Number, default: null },
+    category: [{ type: String, default: null }],
     url: { type: String, default: null },
     imageUrl: { type: String, default: null },
     tel: { type: String, default: null },

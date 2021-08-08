@@ -1,4 +1,14 @@
-import { Button, Grid, TextField } from '@material-ui/core';
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormGroup,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  TextField,
+} from '@material-ui/core';
 import 'twin.macro';
 import { getCsrfToken } from 'next-auth/client';
 import { LatLngTuple } from 'leaflet';
@@ -13,11 +23,40 @@ const MarkerInput = dynamic(() => import('~/components/leaflet/MarkerInput'), {
   ssr: false,
 });
 
+const categories = [
+  '子ども食堂',
+  'フードバンク',
+  'フードパントリー',
+  '相談',
+  '親子の居場所',
+  '応援の案内所',
+  '学習支援',
+  '病児保育',
+];
+
 const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
   const [state, setState] = useState('');
   const [city, setCity] = useState('');
   const [address, setAddress] = useState('');
   const [center, setCenter] = useState<LatLngTuple>([35.68945, 139.691774]);
+
+  const [selectedCategories, setSelectedCategories] = useState([]);
+
+  const handleCategoryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.checked) {
+      if (selectedCategories.indexOf(event.target.value) < 0) {
+        setSelectedCategories([...selectedCategories, event.target.value]);
+      }
+    } else {
+      if (selectedCategories.indexOf(event.target.value) >= 0) {
+        const arr = [...selectedCategories];
+        arr.splice(arr.indexOf(event.target.value), 1);
+        setSelectedCategories(arr);
+      }
+    }
+  };
+
+  const error = selectedCategories.length < 1;
 
   // 住所が変化したらGPS座標を取得しcenterを更新する
   useEffect(() => {
@@ -78,6 +117,59 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
           <Grid container spacing={2} direction='column' tw='w-full'>
             <Grid item>
               <h2 tw='text-4xl'>口コミを投稿</h2>
+            </Grid>
+            <Grid item xs={10}>
+              <TextField
+                fullWidth
+                required
+                type='text'
+                id='title'
+                name='title'
+                label='名称'
+                variant='outlined'
+                placeholder='名称'
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <FormControl required error={error} component='fieldset'>
+                <FormLabel component='legend'>カテゴリー</FormLabel>
+                <FormGroup>
+                  {categories.map((cat) => {
+                    return (
+                      <FormControlLabel
+                        key={cat}
+                        control={
+                          <Checkbox
+                            checked={selectedCategories.indexOf(cat) >= 0}
+                            onChange={handleCategoryChange}
+                            name='category[]'
+                            value={cat}
+                          />
+                        }
+                        label={cat}
+                      />
+                    );
+                  })}
+                </FormGroup>
+                {error && (
+                  <FormHelperText>
+                    カテゴリーを1つ以上選んでください
+                  </FormHelperText>
+                )}
+              </FormControl>
+            </Grid>
+            <Grid item xs={10}>
+              <TextField
+                fullWidth
+                type='text'
+                id='body'
+                name='body'
+                multiline
+                rows={10}
+                label='本文'
+                variant='outlined'
+                placeholder='本文'
+              />
             </Grid>
             <Grid item>
               <h3 tw='text-2xl'>位置情報</h3>
@@ -189,30 +281,76 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 </Grid>
               </Grid>
             </Grid>
+            <Grid item>
+              <h3 tw='text-2xl'>連絡方法</h3>
+            </Grid>
+            <Grid item xs={5}>
+              <TextField
+                fullWidth
+                type='email'
+                id='email'
+                name='email'
+                label='メールアドレス'
+                variant='outlined'
+                placeholder='example@example.com'
+              />
+            </Grid>
+            <Grid item xs={5}>
+              <TextField
+                fullWidth
+                type='tel'
+                id='tel'
+                name='tel'
+                label='電話番号'
+                variant='outlined'
+                placeholder='03-0000-0000'
+              />
+            </Grid>
+            <Grid item>
+              <h3 tw='text-2xl'>URL</h3>
+            </Grid>
             <Grid item xs={10}>
               <TextField
                 fullWidth
-                required
-                type='text'
-                id='title'
-                name='title'
-                label='タイトル'
+                type='url'
+                id='url'
+                name='url'
+                label='ホームページのURL'
                 variant='outlined'
-                placeholder='タイトル'
+                placeholder='https://'
               />
             </Grid>
             <Grid item xs={10}>
               <TextField
                 fullWidth
-                required
-                type='text'
-                id='body'
-                name='body'
-                multiline
-                rows={10}
-                label='本文'
+                type='url'
+                id='twitter'
+                name='twitter'
+                label='TwitterのURL'
                 variant='outlined'
-                placeholder='本文'
+                placeholder='https://twitter.com/'
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <TextField
+                fullWidth
+                type='url'
+                id='instagram'
+                name='instagram'
+                label='InstagramのURL'
+                variant='outlined'
+                placeholder='https://instagram.com/'
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <TextField
+                fullWidth
+                type='url'
+                id='facebook'
+                name='facebook'
+                label='FacebookのURL'
+                variant='outlined'
+                placeholder='https://facebook.com/'
               />
             </Grid>
             <Grid item>
