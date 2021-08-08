@@ -15,12 +15,16 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 // import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import useSWR from 'swr';
+import Link from 'next/link';
+import { useCallback } from 'react';
+import { useRouter } from 'next/dist/client/router';
 
 export const PostCard: React.VFC<{ post: IPostModel }> = ({
   post,
 }: {
   post: IPostModel;
 }) => {
+  const router = useRouter();
   const [menuAnchor, setMenuAnchor] = useState<null | HTMLElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: me } = useSWR('/api/users/me');
@@ -29,10 +33,28 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
     post.placeCity
   } • ${new Date(post.createdAt).toLocaleString()}`;
 
+  const onDelete = useCallback(() => {
+    const f = async () => {
+      const res = await fetch('/api/posts/' + post._id, { method: 'DELETE' });
+      if (res.status === 204) {
+        router.push('/');
+      } else {
+        console.info(res.status);
+        const json = await res.json();
+        console.info(json);
+      }
+    };
+    f();
+  }, []);
+
   return (
     <Card key={post._id} elevation={2} tw='my-5'>
       <CardHeader
-        title={<h3 tw='text-3xl'>{post.title}</h3>}
+        title={
+          <Link href={'/posts/' + post._id}>
+            <h3 tw='text-3xl'>{post.title}</h3>
+          </Link>
+        }
         subheader={subheader}
         action={
           me &&
@@ -40,7 +62,7 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
             <>
               <IconButton
                 tw='focus:outline-none'
-                aria-label='edit'
+                aria-label='menu'
                 onClick={(e) => {
                   setMenuAnchor(e.currentTarget);
                   setMenuOpen(true);
@@ -57,6 +79,9 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
                 }}
               >
                 <MenuItem>Edit</MenuItem>
+                <MenuItem onClick={onDelete} color='secondary'>
+                  Delete
+                </MenuItem>
               </Menu>
             </>
           )
