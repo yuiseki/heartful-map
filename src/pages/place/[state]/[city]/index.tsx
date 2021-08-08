@@ -33,7 +33,7 @@ export const Page: React.VFC = () => {
       </h2>
       {session && (
         <div tw='my-4'>
-          <Link href='/recipes/new'>
+          <Link href='/posts/new'>
             <Button variant='outlined' color='primary'>
               口コミを投稿
             </Button>
