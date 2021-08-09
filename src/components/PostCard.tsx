@@ -102,9 +102,17 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
         }
       />
       <CardContent>
-        <p>カテゴリー：{post.category}</p>
-        <p>{post.body}</p>
-        <p>{post.address}</p>
+        <div>
+          <b>カテゴリー：{post.category}</b>
+        </div>
+        <div>
+          <b>住所：{post.address}</b>
+        </div>
+        <div>
+          {post.body.split('\n').map((line) => {
+            return <p key={line}>{line}</p>;
+          })}
+        </div>
       </CardContent>
       <CardActions>
         <IconButton tw='focus:outline-none'>
