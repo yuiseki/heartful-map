@@ -42,7 +42,7 @@ export default async (req, res) => {
         password: req.body.password,
       });
       await newUser.save();
-      res.redirect('/');
+      res.redirect('/auth/signin?signup=true');
     } catch (e) {
       res.redirect('/auth/signup?error=' + e.message);
     }

@@ -12,6 +12,7 @@ export default function SignIn({ csrfToken }: { csrfToken: string }) {
   const [session] = useSession();
   const router = useRouter();
   const { error } = router.query;
+  const { signup } = router.query;
 
   if (session) return <>ログイン済みです</>;
 
@@ -23,6 +24,11 @@ export default function SignIn({ csrfToken }: { csrfToken: string }) {
           {error && (
             <Grid item tw='text-red-500'>
               メールアドレスまたはパスワードが間違っています
+            </Grid>
+          )}
+          {signup && (
+            <Grid item tw='text-green-500'>
+              ユーザー登録に成功しました。ログインしてください
             </Grid>
           )}
           <Grid item>
@@ -68,7 +74,7 @@ export default function SignIn({ csrfToken }: { csrfToken: string }) {
           </Grid>
           <Grid item>
             <Link>
-              <NextLink href='/signup'>ユーザー登録</NextLink>
+              <NextLink href='/auth/signup'>ユーザー登録</NextLink>
             </Link>
           </Grid>
         </Grid>
