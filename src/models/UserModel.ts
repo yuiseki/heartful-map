@@ -15,6 +15,7 @@ interface IUser {
   placeState?: string;
   placeCity?: string;
   password: string;
+  isAdmin: boolean;
   email: string;
   comparePassword: (candidatePassword: string) => boolean;
   posts?: IPostModel[];
@@ -33,6 +34,7 @@ const schema = new mongoose.Schema(
     gender: { type: String, default: null },
     placeState: { type: String, default: null },
     placeCity: { type: String, default: null },
+    isAdmin: { type: Boolean, default: false },
     email: { type: String, lowercase: true, required: true, unique: true },
     password: { type: String, required: true },
     posts: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'PostModel' }],

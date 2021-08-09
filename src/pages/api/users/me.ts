@@ -26,6 +26,7 @@ export default async (req, res) => {
       res.status(200).json(user);
       break;
     case 'PUT':
+      console.info(req.body);
       user.name = req.body.name;
       if (req.body.birthYear === 'null') {
         user.birthYear = null;

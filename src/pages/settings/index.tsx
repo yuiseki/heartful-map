@@ -3,7 +3,9 @@ import React, { useCallback } from 'react';
 import { getSession } from 'next-auth/client';
 import {
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -61,6 +63,22 @@ export const Page: React.VFC = () => {
                 helperText='メールアドレスは変更できません'
               />
             </Grid>
+            {me.isAdmin && (
+              <Grid item>
+                <h4>あなたは管理者です</h4>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      defaultChecked={me.isAdmin}
+                      disabled
+                      name='管理者'
+                      color='primary'
+                    />
+                  }
+                  label='管理者'
+                />
+              </Grid>
+            )}
             <Grid item>
               <TextField
                 defaultValue={me.name}
