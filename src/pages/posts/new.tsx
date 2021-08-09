@@ -118,7 +118,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
             <Grid item>
               <h2 tw='text-4xl'>口コミを投稿</h2>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
@@ -130,7 +130,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 placeholder='名称'
               />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <FormControl required error={error} component='fieldset'>
                 <FormLabel component='legend'>カテゴリー</FormLabel>
                 <FormGroup>
@@ -158,7 +158,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 )}
               </FormControl>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type='text'
@@ -184,7 +184,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 現在地から入力
               </Button>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 required
@@ -200,7 +200,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 }}
               />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <Grid container spacing={2} direction='row'>
                 <Grid item>
                   <TextField
@@ -236,11 +236,11 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <b>
                 マーカーを正確な位置にドラッグ・アンド・ドロップしてください
               </b>
-              <div tw='h-96'>
+              <div style={{ height: '600px' }}>
                 <MarkerInput
                   zoom={16}
                   center={center}
@@ -251,7 +251,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 />
               </div>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <Grid container spacing={2} direction='row'>
                 <Grid item>
                   <TextField
@@ -309,7 +309,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
             <Grid item>
               <h3 tw='text-2xl'>URL</h3>
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type='url'
@@ -320,7 +320,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 placeholder='https://'
               />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type='url'
@@ -331,7 +331,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 placeholder='https://twitter.com/'
               />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type='url'
@@ -342,7 +342,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 placeholder='https://instagram.com/'
               />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 type='url'
