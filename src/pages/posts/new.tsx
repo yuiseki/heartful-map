@@ -155,7 +155,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 id='body'
                 name='body'
                 multiline
-                rows={5}
+                rows={15}
                 label='本文'
                 variant='outlined'
                 placeholder='本文'
