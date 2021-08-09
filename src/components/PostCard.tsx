@@ -20,6 +20,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ShareIcon from '@material-ui/icons/Share';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
 
@@ -33,7 +34,7 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
   const [menuOpen, setMenuOpen] = useState(false);
   const { data: me } = useSWR('/api/users/me');
 
-  const subheader = `${post.user.name}さん • ${post.placeState} ${
+  const subheader = `${post.category} • ${post.placeState} ${
     post.placeCity
   } • ${new Date(post.createdAt).toLocaleString()}`;
 
@@ -103,15 +104,10 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
       />
       <CardContent>
         <div>
-          <b>カテゴリー：{post.category}</b>
+          <pre>{post.body}</pre>
         </div>
         <div>
           <b>住所：{post.address}</b>
-        </div>
-        <div>
-          {post.body.split('\n').map((line) => {
-            return <p key={line}>{line}</p>;
-          })}
         </div>
       </CardContent>
       <CardActions>
@@ -122,6 +118,13 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
           <a href={post.twitter} target='_blank' rel='noreferrer'>
             <IconButton tw='focus:outline-none'>
               <TwitterIcon />
+            </IconButton>
+          </a>
+        )}
+        {post.instagram && (
+          <a href={post.instagram} target='_blank' rel='noreferrer'>
+            <IconButton tw='focus:outline-none'>
+              <InstagramIcon />
             </IconButton>
           </a>
         )}
