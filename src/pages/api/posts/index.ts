@@ -9,19 +9,9 @@ export default async (req, res) => {
   let user = null;
 
   if (req.method !== 'GET') {
-    if (!session) {
-      res.status(401).json({ error: 'Unauthorized' });
-      res.end();
-      return;
+    if (session) {
+      user = await UserModel.findOne({ email: session.user.email });
     }
-    user = await UserModel.findOne({ email: session.user.email });
-    /*
-    if (!user) {
-      res.status(401).json({ error: 'Unauthorized' });
-      res.end();
-      return;
-    }
-    */
   }
 
   if (req.method === 'GET') {
