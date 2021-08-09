@@ -54,7 +54,7 @@ export const PostCardView: React.VFC<{ post: IPostModel }> = ({
   }, []);
 
   return (
-    <Card key={post._id} elevation={2} tw='my-5'>
+    <Card key={post._id} elevation={4} tw='my-5'>
       <CardHeader
         title={
           <Link href={'/posts/' + post._id}>

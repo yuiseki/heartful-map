@@ -27,9 +27,11 @@ export const PostsByCategoriesView = ({ posts }: { posts: IPostModel[] }) => {
     <div>
       {postsByCategories.map((postsByCategory) => {
         return (
-          <Accordion key={postsByCategory.category}>
+          <Accordion key={postsByCategory.category} elevation={2}>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              {postsByCategory.category} {postsByCategory.posts.length}件
+              <h4 tw='text-3xl'>
+                {postsByCategory.category} {postsByCategory.posts.length}件
+              </h4>
             </AccordionSummary>
             <AccordionDetails>
               <div tw='w-full'>
