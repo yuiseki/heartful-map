@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   CardHeader,
+  Icon,
   IconButton,
   Menu,
   MenuItem,
@@ -114,6 +115,15 @@ export const PostCard: React.VFC<{ post: IPostModel }> = ({
         <IconButton tw='focus:outline-none'>
           <ShareIcon />
         </IconButton>
+        <a
+          href={'https://maps.google.com/?q=' + post.address}
+          target='_blank'
+          rel='noreferrer'
+        >
+          <IconButton tw='focus:outline-none'>
+            <Icon className='fa fa-map-marked-alt' />
+          </IconButton>
+        </a>
         {post.twitter && (
           <a href={post.twitter} target='_blank' rel='noreferrer'>
             <IconButton tw='focus:outline-none'>
