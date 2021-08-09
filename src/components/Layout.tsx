@@ -50,11 +50,11 @@ const MyDrawer: React.VFC = () => {
           <>
             <Divider />
             <Link href='/posts/new'>
-              <ListItem button key='口コミを投稿'>
+              <ListItem button key='情報を投稿'>
                 <ListItemIcon>
                   <PostAddIcon />
                 </ListItemIcon>
-                <ListItemText primary='口コミを投稿' />
+                <ListItemText primary='情報を投稿' />
               </ListItem>
             </Link>
             <Divider />

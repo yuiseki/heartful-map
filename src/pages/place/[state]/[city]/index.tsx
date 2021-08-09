@@ -37,13 +37,13 @@ export const Page: React.VFC = () => {
   return (
     <Layout>
       <h2 tw='text-3xl'>
-        {state}, {city}の口コミ一覧
+        {state}, {city}の情報一覧
       </h2>
       {session && (
         <div tw='my-4'>
           <Link href='/posts/new'>
             <Button variant='outlined' color='primary'>
-              口コミを投稿
+              情報を投稿
             </Button>
           </Link>
         </div>

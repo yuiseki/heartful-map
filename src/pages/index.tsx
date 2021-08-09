@@ -36,7 +36,7 @@ const UserInfo: React.VFC = () => {
         <b>
           <Link href='/auth/signin'>ログイン</Link>
         </b>
-        することで、口コミの投稿ができます。
+        することで、情報の投稿ができます。
       </h3>
     );
   }
@@ -70,12 +70,12 @@ export const Page: React.VFC = () => {
             })}
         </Grid>
       </div>
-      <h2 tw='text-3xl'>最新口コミ</h2>
+      <h2 tw='text-3xl'>最新情報</h2>
       {session && (
         <div tw='my-4'>
           <Link href='/posts/new'>
             <Button variant='outlined' color='primary'>
-              口コミを投稿
+              情報を投稿
             </Button>
           </Link>
         </div>

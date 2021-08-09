@@ -35,7 +35,7 @@ export const Page: React.VFC = () => {
 
   return (
     <Layout>
-      <h2 tw='text-3xl'>{state}の口コミ一覧</h2>
+      <h2 tw='text-3xl'>{state}の情報一覧</h2>
       <p>市区町村を選択してください。</p>
       <div tw='my-4'>
         <Grid container spacing={2}>
@@ -57,7 +57,7 @@ export const Page: React.VFC = () => {
         <div tw='my-4'>
           <Link href='/posts/new'>
             <Button variant='outlined' color='primary'>
-              口コミを投稿
+              情報を投稿
             </Button>
           </Link>
         </div>

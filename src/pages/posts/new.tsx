@@ -106,7 +106,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
           <input name='csrfToken' type='hidden' defaultValue={csrfToken} />
           <Grid container spacing={2} direction='column' tw='w-full'>
             <Grid item>
-              <h2 tw='text-4xl'>口コミを投稿</h2>
+              <h2 tw='text-4xl'>情報を投稿</h2>
             </Grid>
             <Grid item xs={12}>
               <TextField
