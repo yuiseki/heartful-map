@@ -22,16 +22,13 @@ const UserInfo: React.VFC = () => {
 
   if (me) {
     return (
-      <p>
-        <b>
-          {me.name}さん ({me.email})
-        </b>
-        としてログイン中です
-      </p>
+      <h3 tw='text-2xl'>
+        ユーザー {me.name}さん ({me.email}) としてログイン中です
+      </h3>
     );
   } else {
     return (
-      <p>
+      <h3 tw='text-2xl'>
         <b>
           <Link href='/auth/signup'>ユーザー登録</Link>
         </b>
@@ -40,7 +37,7 @@ const UserInfo: React.VFC = () => {
           <Link href='/auth/signin'>ログイン</Link>
         </b>
         することで、口コミの投稿ができます。
-      </p>
+      </h3>
     );
   }
 };
@@ -51,7 +48,7 @@ export const Page: React.VFC = () => {
 
   return (
     <Layout>
-      <h2 tw='text-3xl'>ハートフルマップへようこそ！</h2>
+      <h2 tw='text-4xl'>ハートフルマップへようこそ！</h2>
       <UserInfo />
       <p>都道府県を選択してください。</p>
       <div tw='my-4'>

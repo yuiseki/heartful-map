@@ -25,15 +25,15 @@ export const Page: React.VFC = () => {
     e.preventDefault();
 
     const res = await fetch('/api/users/me', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
         name: e.target.name.value,
         birthYear: e.target.birthYear.value,
         gender: e.target.gender.value,
       }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'PUT',
     });
     const result = await res.json();
     console.info(result);

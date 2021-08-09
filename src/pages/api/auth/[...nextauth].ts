@@ -32,6 +32,10 @@ export default NextAuth({
           });
           if (user) {
             if (user.comparePassword(credentials.password)) {
+              user.loggedInAt = new Date();
+              await UserModel.findOneAndUpdate({ _id: user._id }, user, {
+                upsert: true,
+              });
               return user;
             } else {
               null;

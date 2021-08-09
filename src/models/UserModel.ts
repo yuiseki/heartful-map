@@ -19,6 +19,9 @@ interface IUser {
   email: string;
   comparePassword: (candidatePassword: string) => boolean;
   posts?: IPostModel[];
+  createdAt: string;
+  updatedAt: string;
+  loggedInAt?: string;
 }
 
 export interface IUserModel extends IUser, mongoose.Document {}
@@ -38,6 +41,7 @@ const schema = new mongoose.Schema(
     email: { type: String, lowercase: true, required: true, unique: true },
     password: { type: String, required: true },
     posts: [{ type: mongoose.SchemaTypes.ObjectId, ref: 'PostModel' }],
+    loggedInAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

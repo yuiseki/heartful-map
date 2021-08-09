@@ -1,17 +1,16 @@
 import { getSession } from 'next-auth/client';
 import { dbConnect } from '~/lib/dbConnect';
-import { PostModel } from '~/models/PostModel';
 import { UserModel } from '~/models/UserModel';
 
 export default async (req, res) => {
   const session = await getSession({ req });
   await dbConnect();
   let currentUser = null;
-  let post = null;
+  let user = null;
   const { id } = req.query;
 
   try {
-    post = await PostModel.findOne({ _id: id }).populate('user', '_id name');
+    user = await UserModel.findOne({ _id: id });
   } catch (e) {
     res.status(404);
     res.end();
@@ -31,10 +30,7 @@ export default async (req, res) => {
       res.end();
       return;
     }
-    if (
-      !currentUser.isAdmin &&
-      String(post.user._id) !== String(currentUser._id)
-    ) {
+    if (!currentUser.isAdmin && String(currentUser._id) !== String(user._id)) {
       res.status(401).json({ error: 'Unauthorized, User is not owner.' });
       res.end();
       return;
@@ -42,8 +38,8 @@ export default async (req, res) => {
   }
 
   if (req.method === 'GET') {
-    if (post) {
-      res.status(200).json(post);
+    if (user) {
+      res.status(200).json(user);
     } else {
       res.status(404);
     }
@@ -51,16 +47,16 @@ export default async (req, res) => {
 
   // TODO: 論理削除にすべき
   if (req.method === 'DELETE') {
-    await PostModel.findOneAndDelete({ _id: id });
+    await UserModel.findOneAndDelete({ _id: id });
     res.status(204);
   }
 
   if (req.method === 'PUT') {
     console.info(req.body);
     try {
-      Object.assign(post, req.body);
-      console.info(post);
-      await PostModel.findOneAndUpdate({ _id: id }, post, { upsert: true });
+      Object.assign(user, req.body);
+      console.info(user);
+      await UserModel.findOneAndUpdate({ _id: id }, user, { upsert: true });
       res.redirect('/');
     } catch (err) {
       console.error(err);

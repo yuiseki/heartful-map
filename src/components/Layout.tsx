@@ -28,9 +28,12 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PostAddIcon from '@material-ui/icons/PostAdd';
+import LibraryAddCheckIcon from '@material-ui/icons/LibraryAddCheck';
+import useSWR from 'swr';
 
 const MyDrawer: React.VFC = () => {
   const [session] = useSession();
+  const { data: me } = useSWR('/api/users/me');
   return (
     <div>
       <List>
@@ -64,6 +67,19 @@ const MyDrawer: React.VFC = () => {
               </ListItem>
             </Link>
             <Divider />
+            {me && me.isAdmin && (
+              <>
+                <Link href='/admin'>
+                  <ListItem button key='管理画面'>
+                    <ListItemIcon>
+                      <LibraryAddCheckIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='管理画面' />
+                  </ListItem>
+                </Link>
+                <Divider />
+              </>
+            )}
             <ListItem button onClick={() => signOut()} key='ログアウト'>
               <ListItemIcon>
                 <ExitToAppIcon />
@@ -114,7 +130,7 @@ export function Layout({ children }: Props) {
   };
 
   return (
-    <Container className={classes.root}>
+    <Container maxWidth={false} className={classes.root}>
       <AppBar
         position='fixed'
         className={clsx(classes.appBar, {
