@@ -6,7 +6,7 @@ import { Button, Grid } from '@material-ui/core';
 import { Layout } from '~/components/Layout';
 import { states } from 'detect-location-jp';
 import useSWR from 'swr';
-import { PostCard } from '~/components/PostCard';
+import { PostCardView } from '~/components/PostCardView';
 import { useSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
 
@@ -86,7 +86,7 @@ export const Page: React.VFC = () => {
       <div tw='my-4'>
         {posts &&
           posts.map((post) => {
-            return <PostCard key={post._id} post={post} />;
+            return <PostCardView key={post._id} post={post} />;
           })}
       </div>
     </Layout>

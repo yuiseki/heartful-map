@@ -25,7 +25,7 @@ import InstagramIcon from '@material-ui/icons/Instagram';
 import PhoneIcon from '@material-ui/icons/Phone';
 import MailIcon from '@material-ui/icons/Mail';
 
-export const PostCard: React.VFC<{ post: IPostModel }> = ({
+export const PostCardView: React.VFC<{ post: IPostModel }> = ({
   post,
 }: {
   post: IPostModel;

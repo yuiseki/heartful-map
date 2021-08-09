@@ -3,11 +3,11 @@ import 'twin.macro';
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { Layout } from '~/components/Layout';
-import { PostCard } from '~/components/PostCard';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
 import { Button } from '@material-ui/core';
 import dynamic from 'next/dynamic';
+import { PostsByCategoriesView } from '~/components/PostsByCategoriesView';
 
 const PostMarkerLayer = dynamic(
   () => import('~/components/leaflet/PostMarkerLayer'),
@@ -51,12 +51,7 @@ export const Page: React.VFC = () => {
       <div tw='my-4 h-96'>
         <PostMarkerLayer state={state as string} city={city as string} />
       </div>
-      <div tw='my-4'>
-        {posts &&
-          posts.map((post) => {
-            return <PostCard key={post._id} post={post} />;
-          })}
-      </div>
+      <div tw='my-4'>{posts && <PostsByCategoriesView posts={posts} />}</div>
     </Layout>
   );
 };

@@ -6,10 +6,10 @@ import { cities } from 'detect-location-jp';
 import { Button, Grid } from '@material-ui/core';
 import Link from 'next/link';
 import useSWR from 'swr';
-import { PostCard } from '~/components/PostCard';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
+import { PostsByCategoriesView } from '~/components/PostsByCategoriesView';
 
 const PostMarkerLayer = dynamic(
   () => import('~/components/leaflet/PostMarkerLayer'),
@@ -65,12 +65,7 @@ export const Page: React.VFC = () => {
       <div tw='my-4 h-96'>
         <PostMarkerLayer state={state as string} />
       </div>
-      <div tw='my-4'>
-        {posts &&
-          posts.map((post) => {
-            return <PostCard key={post._id} post={post} />;
-          })}
-      </div>
+      <div tw='my-4'>{posts && <PostsByCategoriesView posts={posts} />}</div>
     </Layout>
   );
 };

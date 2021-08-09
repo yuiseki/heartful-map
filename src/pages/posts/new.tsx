@@ -18,21 +18,11 @@ import { openReverseGeocoder } from '@geolonia/open-reverse-geocoder';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+import { postCategories } from '~/lib/constants/postCategories';
 
 const MarkerInput = dynamic(() => import('~/components/leaflet/MarkerInput'), {
   ssr: false,
 });
-
-const categories = [
-  '子ども食堂',
-  'フードバンク',
-  'フードパントリー',
-  '相談',
-  '親子の居場所',
-  '応援の案内所',
-  '学習支援',
-  '病児保育',
-];
 
 const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
   const [state, setState] = useState('');
@@ -134,7 +124,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
               <FormControl required error={error} component='fieldset'>
                 <FormLabel component='legend'>カテゴリー</FormLabel>
                 <FormGroup>
-                  {categories.map((cat) => {
+                  {postCategories.map((cat) => {
                     return (
                       <FormControlLabel
                         key={cat}
