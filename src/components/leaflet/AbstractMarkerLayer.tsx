@@ -13,6 +13,7 @@ interface MarkerProps {
   icon: string;
 }
 interface AbstractMarkerLayerProps {
+  zoom: number;
   markers: MarkerProps[];
 }
 
@@ -23,6 +24,7 @@ const ChangeView = ({ center, zoom }) => {
 };
 
 const AbstractMarkerLayer: React.VFC<AbstractMarkerLayerProps> = ({
+  zoom,
   markers,
 }: AbstractMarkerLayerProps) => {
   const [center, setCenter] = useState([35.68945, 139.691774]);
@@ -43,7 +45,7 @@ const AbstractMarkerLayer: React.VFC<AbstractMarkerLayerProps> = ({
     <div className='map' tw='h-full mx-auto m-0 p-0'>
       <MapContainer
         center={center as LatLngTuple}
-        zoom={10}
+        zoom={zoom}
         scrollWheelZoom={true}
         style={{ height: '100%', width: '100%' }}
       >
@@ -51,7 +53,7 @@ const AbstractMarkerLayer: React.VFC<AbstractMarkerLayerProps> = ({
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <ChangeView center={center} zoom={10} />
+        <ChangeView center={center} zoom={zoom} />
         {markers.map((marker) => {
           /*
           const iconMarkup = renderToStaticMarkup(

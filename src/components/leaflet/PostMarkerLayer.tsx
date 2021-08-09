@@ -9,6 +9,7 @@ interface AbstractFireDeptProps {
 
 const PostMarkerLayer = ({ state, city }: AbstractFireDeptProps) => {
   const [url, setUrl] = useState(null);
+  const [zoom, setZoom] = useState(4);
   const [markers, setMarkers] = useState([]);
   const { data } = useSWR(url);
 
@@ -16,9 +17,11 @@ const PostMarkerLayer = ({ state, city }: AbstractFireDeptProps) => {
     const params = new URLSearchParams();
     if (state) {
       params.append('state', state);
+      setZoom(10);
     }
     if (city) {
       params.append('city', city);
+      setZoom(13);
     }
     setUrl('/api/posts?' + params.toString());
   }, [state, city]);
@@ -41,7 +44,7 @@ const PostMarkerLayer = ({ state, city }: AbstractFireDeptProps) => {
       }
     }
   }, [data]);
-  return <AbstractMarkerLayer markers={markers} />;
+  return <AbstractMarkerLayer markers={markers} zoom={zoom} />;
 };
 
 export default PostMarkerLayer;
