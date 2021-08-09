@@ -155,121 +155,11 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 id='body'
                 name='body'
                 multiline
-                rows={10}
+                rows={5}
                 label='本文'
                 variant='outlined'
                 placeholder='本文'
               />
-            </Grid>
-            <Grid item>
-              <h3 tw='text-2xl'>位置情報</h3>
-            </Grid>
-            <Grid item>
-              <Button
-                type='button'
-                variant='outlined'
-                color='primary'
-                onClick={getCurrentPosition}
-              >
-                現在地から入力
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                required
-                type='text'
-                id='address'
-                name='address'
-                label='住所'
-                variant='outlined'
-                placeholder='住所'
-                value={address}
-                onChange={(e) => {
-                  setAddress(e.target.value);
-                }}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={2} direction='row'>
-                <Grid item>
-                  <TextField
-                    required
-                    type='text'
-                    id='placeState'
-                    name='placeState'
-                    label='都道府県'
-                    variant='outlined'
-                    placeholder='都道府県'
-                    defaultValue={state}
-                    value={state}
-                    onChange={(e) => {
-                      setState(e.target.value);
-                    }}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    required
-                    type='text'
-                    id='placeCity'
-                    name='placeCity'
-                    label='市区町村'
-                    variant='outlined'
-                    placeholder='市区町村'
-                    defaultValue={city}
-                    value={city}
-                    onChange={(e) => {
-                      setCity(e.target.value);
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid item xs={12}>
-              <b>
-                マーカーを正確な位置にドラッグ・アンド・ドロップしてください
-              </b>
-              <div style={{ height: '600px' }}>
-                <MarkerInput
-                  zoom={16}
-                  center={center}
-                  dragend={(latlng) => {
-                    console.info('dragend', latlng);
-                    setCenter([latlng.lat, latlng.lng]);
-                  }}
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12}>
-              <Grid container spacing={2} direction='row'>
-                <Grid item>
-                  <TextField
-                    required
-                    type='text'
-                    id='latitude'
-                    name='latitude'
-                    label='latitude'
-                    variant='outlined'
-                    placeholder='latitude'
-                    defaultValue={center[0]}
-                    value={center[0]}
-                  />
-                </Grid>
-                <Grid item>
-                  <TextField
-                    required
-                    type='text'
-                    id='longitude'
-                    name='longitude'
-                    label='longitude'
-                    variant='outlined'
-                    placeholder='longitude'
-                    defaultValue={center[1]}
-                    value={center[1]}
-                  />
-                </Grid>
-              </Grid>
             </Grid>
             <Grid item>
               <h3 tw='text-2xl'>連絡方法</h3>
@@ -342,6 +232,131 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                 variant='outlined'
                 placeholder='https://facebook.com/'
               />
+            </Grid>
+            <Grid item>
+              <h3 tw='text-2xl'>位置情報</h3>
+            </Grid>
+            <Grid item>
+              <Button
+                type='button'
+                variant='outlined'
+                color='primary'
+                onClick={getCurrentPosition}
+              >
+                現在地から入力
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                required
+                type='text'
+                id='address'
+                name='address'
+                label='住所'
+                variant='outlined'
+                placeholder='住所'
+                value={address}
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container spacing={2} direction='row'>
+                <Grid item>
+                  <TextField
+                    required
+                    type='text'
+                    id='placeState'
+                    name='placeState'
+                    label='都道府県'
+                    variant='filled'
+                    placeholder='都道府県'
+                    defaultValue={state}
+                    value={state}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    onChange={(e) => {
+                      setState(e.target.value);
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    required
+                    type='text'
+                    id='placeCity'
+                    name='placeCity'
+                    label='市区町村'
+                    variant='filled'
+                    placeholder='市区町村'
+                    defaultValue={city}
+                    value={city}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    onChange={(e) => {
+                      setCity(e.target.value);
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item>
+              <h4 tw='text-xl'>GPS座標</h4>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container spacing={2} direction='row'>
+                <Grid item>
+                  <TextField
+                    required
+                    type='text'
+                    id='latitude'
+                    name='latitude'
+                    label='latitude'
+                    variant='filled'
+                    placeholder='latitude'
+                    defaultValue={center[0]}
+                    value={center[0]}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item>
+                  <TextField
+                    required
+                    type='text'
+                    id='longitude'
+                    name='longitude'
+                    label='longitude'
+                    variant='filled'
+                    placeholder='longitude'
+                    defaultValue={center[1]}
+                    value={center[1]}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <b>
+                マーカーを正確な位置にドラッグ・アンド・ドロップしてください
+              </b>
+              <div style={{ height: '600px' }}>
+                <MarkerInput
+                  zoom={16}
+                  center={center}
+                  dragend={(latlng) => {
+                    console.info('dragend', latlng);
+                    setCenter([latlng.lat, latlng.lng]);
+                  }}
+                />
+              </div>
             </Grid>
             <Grid item>
               <Button
