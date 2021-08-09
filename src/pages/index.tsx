@@ -22,9 +22,19 @@ const UserInfo: React.VFC = () => {
 
   if (me) {
     return (
-      <h3 tw='text-2xl'>
-        ユーザー {me.name}さん ({me.email}) としてログイン中です
-      </h3>
+      <>
+        <h3 tw='text-2xl'>
+          ユーザー {me.name}さん ({me.email}) としてログイン中です
+        </h3>
+        {!me.name && (
+          <div tw='my-2'>
+            <b>
+              <Link href='/settings'>設定画面</Link>
+            </b>
+            で名前を設定してください。
+          </div>
+        )}
+      </>
     );
   } else {
     return (
@@ -50,7 +60,7 @@ export const Page: React.VFC = () => {
     <Layout>
       <h2 tw='text-4xl'>ハートフルマップへようこそ！</h2>
       <UserInfo />
-      <p>都道府県を選択してください。</p>
+      <p tw='my-2'>都道府県を選択してください。</p>
       <div tw='my-4'>
         <Grid container spacing={2}>
           {states
