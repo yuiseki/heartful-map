@@ -17,6 +17,10 @@ const globalStyles = css`
   * {
     box-sizing: border-box;
   }
+
+  pre {
+    white-space: pre-wrap;
+  }
 `;
 
 const App = ({ Component, pageProps }: AppProps) => {
