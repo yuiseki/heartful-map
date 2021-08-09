@@ -165,6 +165,9 @@ export const PostCardView: React.VFC<{ post: IPostModel }> = ({
 };
 
 const stringToColor = (string) => {
+  if (string === null) {
+    return '#000000';
+  }
   let hash = 0;
   let i;
 
@@ -185,6 +188,9 @@ const stringToColor = (string) => {
 };
 
 const stringToShortString = (string) => {
+  if (string === null) {
+    return '無名';
+  }
   if (string.indexOf(' ') > 0) {
     return `${string.split(' ')[0][0]}${string.split(' ')[1][0]}`;
   } else {
