@@ -53,7 +53,6 @@ const Row = ({ post }: { post: IPostModel }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell>{post.draft ? '下書き' : ''}</TableCell>
         <TableCell>
           {post.confirmed ? (
             <div>
@@ -111,9 +110,6 @@ export const Page: React.VFC = () => {
             <TableRow>
               <TableCell>
                 <b>本文</b>
-              </TableCell>
-              <TableCell>
-                <b>下書き？</b>
               </TableCell>
               <TableCell>
                 <b>確認済み？</b>
