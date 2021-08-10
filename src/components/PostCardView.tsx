@@ -107,14 +107,18 @@ export const PostCardView: React.VFC<{ post: IPostModel }> = ({
         <div>
           <pre>{post.body}</pre>
         </div>
-        <div tw='my-3 text-xl'>
-          <a href={post.url} tw='text-blue-500'>
-            {post.url}
-          </a>
-        </div>
-        <div tw='text-xl'>
-          <p>住所：{post.address}</p>
-        </div>
+        {post.url && (
+          <div tw='my-3 text-xl'>
+            <a href={post.url} tw='text-blue-500'>
+              {post.url}
+            </a>
+          </div>
+        )}
+        {post.address && (
+          <div tw='text-xl'>
+            <p>住所：{post.address}</p>
+          </div>
+        )}
       </CardContent>
       <CardActions>
         <IconButton tw='focus:outline-none'>
