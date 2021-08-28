@@ -14,7 +14,9 @@ export const CurrentLocationButton = () => {
         coords.latitude,
       ]);
       console.info('openReverseGeocoder', result);
-      router.push('/place/' + result.perfecture + '/' + result.city);
+      const path = '/place/' + result.prefecture + '/' + result.city;
+      console.info('path', path);
+      router.push(path);
     };
     navigator.geolocation.getCurrentPosition(success);
   }, []);
