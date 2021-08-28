@@ -24,7 +24,7 @@ const globalStyles = css`
   }
 `;
 
-const theme = createTheme({ palette: { primary: { main: '#ff7f8f' } } })
+const theme = createTheme({ palette: { primary: { main: '#ff7f8f' } } });
 
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -62,7 +62,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <Component {...pageProps} />
         </>
       </Provider>
-  </ThemeProvider>
+    </ThemeProvider>
   );
 };
 
