@@ -5,7 +5,7 @@ import useSWR from 'swr';
 import { Layout } from '~/components/Layout';
 import { useSession } from 'next-auth/client';
 import Link from 'next/link';
-import { Button } from '@material-ui/core';
+import { Button, Tab, Tabs } from '@material-ui/core';
 import dynamic from 'next/dynamic';
 import { PostsByCategoriesView } from '~/components/PostsByCategoriesView';
 
@@ -22,6 +22,12 @@ export const Page: React.VFC = () => {
   const [url, setUrl] = useState(null);
   const { data: posts } = useSWR(url);
   const [session] = useSession();
+
+  const [tab, setTab] = useState(1);
+
+  const handleTabChange = (_event, newValue) => {
+    setTab(newValue);
+  };
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -48,6 +54,24 @@ export const Page: React.VFC = () => {
           </Link>
         </div>
       )}
+      <Tabs
+        value={tab}
+        variant='scrollable'
+        indicatorColor='primary'
+        textColor='primary'
+        onChange={handleTabChange}
+      >
+        <Tab label='生活の応援' style={{ minWidth: 20 }} />
+        <Tab label='手当と助成金' style={{ minWidth: 20 }} />
+        <Tab label='保育・託児' style={{ minWidth: 20 }} />
+        <Tab label='習い事の応援' style={{ minWidth: 20 }} />
+        <Tab label='食の応援' style={{ minWidth: 20 }} />
+        <Tab label='相談の応援' style={{ minWidth: 20 }} />
+        <Tab label='住まいの応援' style={{ minWidth: 20 }} />
+        <Tab label='イベント' style={{ minWidth: 20 }} />
+        <Tab label='お仕事事情' style={{ minWidth: 20 }} />
+        <Tab label='コロナ支援' style={{ minWidth: 20 }} />
+      </Tabs>
       <div tw='my-4 h-96'>
         <PostMarkerLayer state={state as string} city={city as string} />
       </div>
