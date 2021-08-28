@@ -4,6 +4,7 @@ import { Global } from '@emotion/react';
 import { AppProps } from 'next/app';
 import { Provider } from 'next-auth/client';
 import React, { useEffect } from 'react';
+import { createTheme, ThemeProvider } from '@material-ui/core';
 
 const globalStyles = css`
   html,
@@ -23,6 +24,8 @@ const globalStyles = css`
   }
 `;
 
+const theme = createTheme({ palette: { primary: { main: '#ff7f8f' } } })
+
 const App = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side');
@@ -31,33 +34,35 @@ const App = ({ Component, pageProps }: AppProps) => {
     }
   }, []);
   return (
-    <Provider session={pageProps.session}>
-      <>
-        <Head>
-          <title>ハートフルマップ</title>
-          <link rel='icon' href='/favicon.ico' />
-          <link
-            href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap'
-            rel='stylesheet'
-          />
-          <link
-            rel='stylesheet'
-            href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
-          />
-          <link
-            rel='stylesheet'
-            href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'
-            integrity='sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=='
-            crossOrigin='anonymous'
-            referrerPolicy='no-referrer'
-          />
-          <script src='https://cdn.geolonia.com/community-geocoder.js'></script>
-        </Head>
-        <GlobalStyles />
-        <Global styles={globalStyles} />
-        <Component {...pageProps} />
-      </>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider session={pageProps.session}>
+        <>
+          <Head>
+            <title>ハートフルマップ</title>
+            <link rel='icon' href='/favicon.ico' />
+            <link
+              href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap'
+              rel='stylesheet'
+            />
+            <link
+              rel='stylesheet'
+              href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
+            />
+            <link
+              rel='stylesheet'
+              href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css'
+              integrity='sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=='
+              crossOrigin='anonymous'
+              referrerPolicy='no-referrer'
+            />
+            <script src='https://cdn.geolonia.com/community-geocoder.js'></script>
+          </Head>
+          <GlobalStyles />
+          <Global styles={globalStyles} />
+          <Component {...pageProps} />
+        </>
+      </Provider>
+  </ThemeProvider>
   );
 };
 
