@@ -10,7 +10,9 @@ const MONGODB_DB = process.env.MONGODB_DB ?? 'concern-kalte-dev';
 const MONGODB_USER = process.env.MONGODB_USER;
 const MONGODB_PASS = process.env.MONGODB_PASS;
 
-if (!MONGODB_HOST || !MONGODB_USER || !MONGODB_PASS) {
+const userSegment = (MONGODB_USER || MONGODB_PASS) ?  MONGODB_USER + ':' + MONGODB_PASS + '@' : ''
+
+if (!MONGODB_HOST) {
   throw new Error(
     'Please define the MONGODB_HOST environment variable inside .env.local'
   );
@@ -18,10 +20,7 @@ if (!MONGODB_HOST || !MONGODB_USER || !MONGODB_PASS) {
 
 const MONGODB_ENDPOINT =
   MONGODB_PROTOCOL +
-  MONGODB_USER +
-  ':' +
-  MONGODB_PASS +
-  '@' +
+  userSegment +
   MONGODB_HOST +
   '/' +
   MONGODB_DB +
