@@ -151,6 +151,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
+                required
                 type='text'
                 id='body'
                 name='body'
