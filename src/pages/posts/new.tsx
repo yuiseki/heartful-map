@@ -127,7 +127,7 @@ const Page: React.VFC = ({ csrfToken }: { csrfToken: string }) => {
                   {postCategories.map((cat) => {
                     return (
                       <FormControlLabel
-                        key={cat}
+                        key={cat.name}
                         control={
                           <Checkbox
                             checked={selectedCategories.indexOf(cat) >= 0}
