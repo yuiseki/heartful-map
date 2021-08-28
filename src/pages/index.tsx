@@ -9,6 +9,7 @@ import useSWR from 'swr';
 import { PostCardView } from '~/components/PostCardView';
 import { useSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
+import { CurrentLocationButton } from '~/components/CurrentLocationButton';
 
 const PostMarkerLayer = dynamic(
   () => import('~/components/leaflet/PostMarkerLayer'),
@@ -61,6 +62,7 @@ export const Page: React.VFC = () => {
       <h2 tw='text-4xl'>ハートフルマップへようこそ！</h2>
       <UserInfo />
       <p tw='my-2'>都道府県を選択してください。</p>
+      <CurrentLocationButton />
       <div tw='my-4'>
         <Grid container spacing={2}>
           {states
