@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { useSession } from 'next-auth/client';
 import dynamic from 'next/dynamic';
 import { PostsByCategoriesView } from '~/components/PostsByCategoriesView';
+import { MainCategoryTabs } from '~/components/MainCategoryTabs';
 
 const PostMarkerLayer = dynamic(
   () => import('~/components/leaflet/PostMarkerLayer'),
@@ -62,6 +63,7 @@ export const Page: React.VFC = () => {
           </Link>
         </div>
       )}
+      <MainCategoryTabs />
       <div tw='my-4 h-96'>
         <PostMarkerLayer state={state as string} />
       </div>
