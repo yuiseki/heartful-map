@@ -176,10 +176,10 @@ export const PostForm: React.VFC<{
                 {postCategories.map((cat) => {
                   return (
                     <FormControlLabel
-                      key={cat}
+                      key={cat.name}
                       control={
                         <Checkbox
-                          checked={selectedCategories.indexOf(cat) >= 0}
+                          checked={selectedCategories.indexOf(cat.name) >= 0}
                           onChange={handleCategoryChange}
                           name='category[]'
                           value={cat}
