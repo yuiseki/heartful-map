@@ -19,6 +19,7 @@ import {
   Toolbar,
   AppBar,
   Drawer,
+  Typography,
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -123,7 +124,7 @@ type Props = {
 export function Layout({ children }: Props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setOpen(!open);
@@ -133,6 +134,7 @@ export function Layout({ children }: Props) {
     <Container maxWidth={false} className={classes.root}>
       <AppBar
         position='fixed'
+        color='transparent'
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
@@ -147,7 +149,9 @@ export function Layout({ children }: Props) {
           >
             <MenuIcon />
           </IconButton>
-          <h1 tw='text-xl'>ハートフルマップ</h1>
+          <Typography>
+            <h1 tw='text-xl'>ハートフルマップ</h1>
+          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer
