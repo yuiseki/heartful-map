@@ -39,13 +39,15 @@ export default async (req, res) => {
   }
 
   if (req.method === 'POST') {
-    console.info(req.body);
+    console.info(JSON.stringify(req.body));
     try {
       const newPost = new PostModel({
         ...req.body,
         category: req.body['category[]'],
         user: user,
       });
+
+      console.info('newPost is : ' + newPost);
       await newPost.save();
       res.redirect('/');
     } catch (e) {

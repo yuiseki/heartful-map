@@ -56,10 +56,10 @@ export default async (req, res) => {
   }
 
   if (req.method === 'PUT') {
-    console.info(req.body);
+    console.info('Now putting : ' + JSON.stringify(req.body, null, '  '));
     try {
       Object.assign(post, req.body);
-      console.info(post);
+      console.info('Asssigned post is : ' + post);
       await PostModel.findOneAndUpdate({ _id: id }, post, { upsert: true });
       res.redirect('/');
     } catch (err) {
