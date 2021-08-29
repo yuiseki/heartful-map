@@ -84,7 +84,11 @@ export const PostCardView: React.VFC<{ post: IPostModel }> = ({
                   setMenuOpen(false);
                 }}
               >
-                <MenuItem>Edit</MenuItem>
+                <MenuItem
+                  onClick={() => router.push(`/posts/${post._id}/edit`)}
+                >
+                  Edit
+                </MenuItem>
                 <MenuItem onClick={onDelete} color='secondary'>
                   Delete
                 </MenuItem>
