@@ -182,10 +182,10 @@ export const PostForm: React.VFC<{
                           checked={selectedCategories.indexOf(cat.name) >= 0}
                           onChange={handleCategoryChange}
                           name='category[]'
-                          value={cat}
+                          value={cat.name}
                         />
                       }
-                      label={cat}
+                      label={cat.name}
                     />
                   );
                 })}
