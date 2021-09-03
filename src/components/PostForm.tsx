@@ -94,6 +94,7 @@ export const PostForm: React.VFC<{
       });
     }
 
+    setSubmitting(false);
     router.push('/');
   };
 
