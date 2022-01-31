@@ -8,6 +8,8 @@ import {
   FormLabel,
   Grid,
   TextField,
+  makeStyles,
+  CircularProgress,
 } from '@material-ui/core';
 import 'twin.macro';
 import { LatLngTuple } from 'leaflet';
@@ -23,6 +25,16 @@ import { useRouter } from 'next/dist/client/router';
 const MarkerInput = dynamic(() => import('~/components/leaflet/MarkerInput'), {
   ssr: false,
 });
+
+const useStyles = makeStyles(() => ({
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    marginTop: -12,
+    marginLeft: -12,
+  },
+}));
 
 export const PostForm: React.VFC<{
   csrfToken: string;
@@ -48,13 +60,17 @@ export const PostForm: React.VFC<{
     post?.latitude || 35.68945,
     post?.longitude || 139.691774,
   ]);
+  const [submitting, setSubmitting] = useState(false);
+  const classes = useStyles();
 
   const [selectedCategories, setSelectedCategories] = useState(
     post?.category || []
   );
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    setSubmitting(true);
     event.preventDefault();
+
     const formData = new FormData(event.currentTarget);
     const body: any = {};
     formData.forEach((value, key) => (body[key] = value));
@@ -77,6 +93,8 @@ export const PostForm: React.VFC<{
         body: JSON.stringify(body),
       });
     }
+
+    setSubmitting(false);
     router.push('/');
   };
 
@@ -147,7 +165,6 @@ export const PostForm: React.VFC<{
     navigator.geolocation.getCurrentPosition(success);
   }, []);
 
-  //<form method='post' action='/api/posts'>
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -419,8 +436,14 @@ export const PostForm: React.VFC<{
               type='submit'
               variant='contained'
               color='primary'
-              disabled={false}
+              disabled={submitting}
             >
+              {submitting && (
+                <CircularProgress
+                  size={24}
+                  className={classes.buttonProgress}
+                />
+              )}
               {submitLabel}
             </Button>
           </Grid>
